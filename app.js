@@ -1,23 +1,33 @@
-// CONTROL DE TIMING DE LA ANIMACIÓN (DOS FASES DE SPLASH SCREEN)
+// Memoria local simulada para guardar los parámetros del carro
+let userVehicleData = {
+    type: "Sedan / Compact",
+    engine: "Internal Combustion",
+    goal: "Maximum Time Efficiency"
+};
+
+// CONTROL DE TIMING DE LA ANIMACIÓN + ENTRADA DE FORMULARIO DE REGISTRO
 window.addEventListener('DOMContentLoaded', () => {
     const phaseApp = document.getElementById('splash-phase-app');
     const phaseGov = document.getElementById('splash-phase-gov');
     const splashScreen = document.getElementById('splash-screen');
+    const onboarding = document.getElementById('onboarding-overlay');
 
-    // Tiempo 1: Muestra el nombre de tu aplicación por 2.2 segundos
+    // Tiempo 1: App logo (2.2s)
     setTimeout(() => {
         phaseApp.classList.remove('active');
         
-        // Tiempo 2: Cambia al logo oficial de Querétaro por 2.2 segundos más
+        // Tiempo 2: Gobierno logo (2.2s)
         setTimeout(() => {
             phaseGov.classList.add('active');
             
-            // Tiempo 3: Desvanece por completo el telón y entra al Dashboard limpio
+            // Tiempo 3: Cierra Splash Screen y despliega el Modal de Registro de Carro
             setTimeout(() => {
                 splashScreen.style.opacity = '0';
                 setTimeout(() => { 
                     splashScreen.style.visibility = 'hidden'; 
-                    map.invalidateSize(); // Ajusta el mapa Leaflet correctamente
+                    // En lugar de pasar directo, activamos el onboarding interactivo
+                    onboarding.classList.add('show');
+                    map.invalidateSize(); 
                 }, 600);
             }, 2200);
 
@@ -27,7 +37,32 @@ window.addEventListener('DOMContentLoaded', () => {
     triggerNNEngine(); 
 });
 
-// Tab Switching Mechanism + Disparador de Alertas Predictivas
+// Guardar los datos del formulario y arrancar oficialmente el Dashboard
+function saveVehicleProfile(event) {
+    event.preventDefault(); // Detiene la recarga de página
+    
+    // Captura de datos ingresados por el usuario
+    userVehicleData.type = document.getElementById('car-type').value;
+    userVehicleData.engine = document.getElementById('engine-type').value;
+    userVehicleData.goal = document.getElementById('opt-goal').value;
+
+    // Actualiza el badge visual en la barra lateral para demostrar que los datos se guardaron
+    const badge = document.getElementById('active-profile-badge');
+    badge.innerHTML = `⚙️ Core Sync: ${userVehicleData.type} (${userVehicleData.engine})`;
+    badge.style.display = "block";
+
+    // Modifica dinámicamente el texto de la alerta neuronal para personalizarlo con sus datos
+    document.getElementById('dynamic-notification-text').innerHTML = `
+        Habit sequence detected for your <strong>${userVehicleData.type}</strong>. 
+        Upcoming departure forecast [18:20]. Standard route contains delays. 
+        Bypass optimization tailored for <strong>${userVehicleData.goal}</strong> is computed.
+    `;
+
+    // Cierra el modal con efecto fade-out
+    document.getElementById('onboarding-overlay').classList.remove('show');
+}
+
+// Tab Switching Mechanism + Disparador de Alertas Predictivas Personalizadas
 function switchTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -35,18 +70,16 @@ function switchTab(tabId) {
     document.getElementById(tabId).classList.add('active');
     event.currentTarget.classList.add('active');
 
-    // DISPARADOR: Si el usuario da clic a la pestaña Neural Network, lanza la alerta interactiva
+    // DISPARADOR: Si entra a Neural Network, lanza la alerta usando las variables guardadas
     if (tabId === 'nn-tab') {
         setTimeout(() => {
             document.getElementById('ai-notification').classList.add('show');
-        }, 300); // Pequeña espera para efecto dinámico
+        }, 300);
     } else {
-        // Oculta la notificación si regresa a Routing Center
         document.getElementById('ai-notification').classList.remove('show');
     }
 }
 
-// Funciones para cerrar de forma manual la notificación en el botón "×"
 function closeNotification() {
     document.getElementById('ai-notification').classList.remove('show');
 }
@@ -57,7 +90,7 @@ function triggerNNEngine() {
     const outputBox = document.getElementById('nn-output');
     
     if (selector === 'weekday-rush') {
-        outputBox.innerHTML = "<strong>Result:</strong> Routine Confirmed.<br>📍 Destination: <strong>Centro Sur (Workplace)</strong>.<br>🔮 Recommendation: Route B active due to 5 de Febrero saturation forecasts.";
+        outputBox.innerHTML = `<strong>Result:</strong> Routine Confirmed.<br>📍 Destination: <strong>Centro Sur (Workplace)</strong>.<br>🔮 Recommendation: Core algorithm priority synced to <em>${userVehicleData.goal}</em>. Route B active.`;
         outputBox.style.borderLeftColor = "var(--qro-blue)";
     } else if (selector === 'weekend-morning') {
         outputBox.innerHTML = "<strong>Result:</strong> Anomaly Detected (Non-routine trip).<br>📍 Destination: <strong>Antea / Juriquilla Shopping Hub</strong>.<br>🔮 Recommendation: Open routing active. High network bandwidth available.";
@@ -108,7 +141,7 @@ function runCollaborativeRouting() {
     document.getElementById('system-status').innerText = "BALANCED & EFFICIENT";
     document.getElementById('system-status').style.backgroundColor = "#d1fae5";
     document.getElementById('system-status').style.color = "#065f46";
-    document.getElementById('status-desc').innerHTML = "<strong>Result:</strong> AI decentralized traffic footprint: 40% via Bernardo Quintana, 35% via Libramiento, 25% on main artery. Network flow optimal.";
+    document.getElementById('status-desc').innerHTML = `<strong>Result:</strong> AI decentralized traffic footprint optimized for <strong>${userVehicleData.type}</strong>. Flow balanced across alternative arterial nodes successfully.`;
 
     const pathBQ = [originJuriquilla, [20.6650, -100.4000], [20.6100, -100.3700], [20.5800, -100.3600], destCentroSur];
     const pathLibramiento = [originJuriquilla, [20.6600, -100.4700], [20.5900, -100.4600], [20.5500, -100.4100], destCentroSur];

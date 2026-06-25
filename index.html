@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QroRoute-AI</title>
+    <title>QroRoute-AI // Smart Mobility Dashboard</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="./style.css" />
 </head>
@@ -35,13 +35,53 @@
         </div>
     </div>
 
+    <div id="onboarding-overlay">
+        <div class="onboarding-card">
+            <div class="onboarding-header">
+                <h2>🚗 Vehicle Profile Calibration</h2>
+                <p>Configure your telemetry data to optimize routing algorithms.</p>
+            </div>
+            <form id="onboarding-form" onsubmit="saveVehicleProfile(event)">
+                <div class="form-group">
+                    <label>Vehicle Type</label>
+                    <select id="car-type" required>
+                        <option value="Sedan / Compact">Sedan / Compact (Standard footprint)</option>
+                        <option value="SUV / Crossover">SUV / Crossover (High volume)</option>
+                        <option value="Electric / Hybrid">EV / Hybrid (Eco-priority lane access)</option>
+                        <option value="Heavy Duty / Logistics">Heavy Duty / Cargo (Restricted zones)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Propulsion / Engine</label>
+                    <select id="engine-type">
+                        <option value="Internal Combustion">Gasoline / Diesel</option>
+                        <option value="100% Electric">100% Electric (Zero Emissions)</option>
+                        <option value="Plug-in Hybrid">Plug-in Hybrid (PHEV)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Primary Optimization Goal</label>
+                    <select id="opt-goal">
+                        <option value="Maximum Time Efficiency">Absolute Time Efficiency (Fastest)</option>
+                        <option value="Energy & Fuel Economy">Energy Conservation (Eco-routing)</option>
+                        <option value="Balanced System Load">Communal Distribution (Maximum Reward Points)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit-profile">Save Profile & Initialize AI</button>
+            </form>
+        </div>
+    </div>
+
     <div id="ai-notification" class="notification-toast">
         <div class="notification-header">
             <span class="notification-icon">🧠</span>
             <strong>QroRoute-AI // Predictive Engine</strong>
             <button class="close-notification" onclick="closeNotification()">×</button>
         </div>
-        <div class="notification-body">
+        <div class="notification-body" id="dynamic-notification-text">
             Habit sequence detected: <strong>Upcoming departure forecast [18:20].</strong> Your standard route shows severe delays. Collaborative bypass suggested to preserve time efficiency.
         </div>
     </div>
@@ -51,6 +91,7 @@
             <div class="logo-container">
                 <h1>QroRoute-AI</h1>
                 <div class="tagline">Collaborative Smart Mobility</div>
+                <div id="active-profile-badge" style="display:none; margin-top:8px; font-size:10px; color:var(--qro-blue); font-weight:700; text-transform:uppercase; background:rgba(0,102,255,0.06); padding:4px; border-radius:4px;"></div>
             </div>
 
             <div class="tab-navigation">

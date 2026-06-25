@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QroRoute-AI</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div id="splash-phase-app" class="splash-phase active">
+            <div class="logo-build-container">
+                <div class="build-ring"></div>
+                <div class="build-core"></div>
+                <div class="build-arrow"></div>
+            </div>
+            <div class="splash-text">QroRoute-AI</div>
+            <div class="splash-tagline">Collaborative Smart Mobility</div>
+        </div>
+
+        <div id="splash-phase-gov" class="splash-phase">
+            <div class="gov-alliance-intro">
+                <div class="gov-q-logo">
+                    <span class="q-letter">Q</span>
+                    <div class="q-internal-pattern"></div>
+                </div>
+                <div class="gov-divider-vertical"></div>
+                <div class="gov-text-official">
+                    <span class="gov-main-state">QUERÉTARO</span>
+                    <span class="gov-motto">GOBIERNO DEL ESTADO</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ai-notification" class="notification-toast">
+        <div class="notification-header">
+            <span class="notification-icon">🧠</span>
+            <strong>QroRoute-AI // Predictive Engine</strong>
+            <button class="close-notification" onclick="closeNotification()">×</button>
+        </div>
+        <div class="notification-body">
+            Habit sequence detected: <strong>Upcoming departure forecast [18:20].</strong> Your standard route shows severe delays. Collaborative bypass suggested to preserve time efficiency.
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div>
+            <div class="logo-container">
+                <h1>QroRoute-AI</h1>
+                <div class="tagline">Collaborative Smart Mobility</div>
+            </div>
+
+            <div class="tab-navigation">
+                <button class="tab-btn active" onclick="switchTab('routing-tab')">Routing Center</button>
+                <button class="tab-btn" onclick="switchTab('nn-tab')">Neural Network (LSTM)</button>
+            </div>
+
+            <div id="routing-tab" class="tab-content active">
+                <div class="card">
+                    <h3>⚡ Routing Protocol</h3>
+                    <button class="btn btn-individual" onclick="runIndividualRouting()">Individual Routing (Google/Waze)</button>
+                    <button class="btn btn-ai" onclick="runCollaborativeRouting()">Activate QroRoute-AI Protocol</button>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Network Diagnostics</h3>
+                    <div id="system-status" class="status-badge">STANDBY</div>
+                    <p id="status-desc" style="margin-top: 10px; min-height: 50px; color: #475569;">Select a routing paradigm to visualize city load distribution profile.</p>
+                </div>
+            </div>
+
+            <div id="nn-tab" class="tab-content">
+                <div class="card">
+                    <h3>☉ LSTM Habit Architecture</h3>
+                    <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px;">
+                        Recurrent Neural Networks (LSTM) process sequential time-series data to forecast driver intentions.
+                    </p>
+                    <div class="habit-pill">
+                        <strong>Input Sequence:</strong> Mon-Fri [18:20 - 18:35]<br>
+                        <strong>Spatial Match:</strong> 98.4% Confidence<br>
+                        <strong>Predicted Dest:</strong> Centro Sur Node
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🔮 Target Prediction Sandbox</h3>
+                    <label style="font-size: 11px; font-weight: bold; color: var(--text-muted);">SELECT SIMULATED TIMESTAMP:</label>
+                    <select id="time-selector" onchange="triggerNNEngine()" style="width: 100%; padding: 8px; margin-top: 5px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 12px; background: #fff; color: #0f172a;">
+                        <option value="weekday-rush">Monday @ 18:30 (Peak Hour)</option>
+                        <option value="weekend-morning">Saturday @ 10:00 (Leisure)</option>
+                        <option value="night-shift">Thursday @ 23:00 (Late Shift)</option>
+                    </select>
+                    <div id="nn-output" style="margin-top: 10px; font-size: 12px; padding: 10px; background: #fff; border-radius: 6px; border-left: 3px solid var(--qro-blue);">
+                        <strong>LSTM State:</strong> Awaiting trigger...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 0; background-color: #ffffff; border: 1px solid rgba(0, 102, 255, 0.15); box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+            <h4 style="margin: 0; text-align: center; color: var(--text-muted); font-size: 11px; letter-spacing: 1px; text-transform: uppercase;">Civic Wallet Incentives</h4>
+            <div class="token-display" id="token-count">0.00 QRO</div>
+            <div style="font-size: 10px; color: var(--success-green); text-align: center; font-weight: bold;">
+                ✓ Active Link with IQT Government Framework
+            </div>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

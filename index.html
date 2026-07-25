@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
                 <div class="build-arrow"></div>
             </div>
             <div class="splash-text">QroRoute-AI</div>
-            <div class="splash-tagline">Smart AI Transit</div>
+            <div class="splash-tagline">Movilidad Inteligente con IA</div>
         </div>
 
         <div id="splash-phase-gov" class="splash-phase">
@@ -38,39 +38,39 @@
     <div id="onboarding-overlay">
         <div class="onboarding-card">
             <div class="onboarding-header">
-                <h2>🚗 Vehicle Profile Calibration</h2>
-                <p>Configure your telemetry data to optimize routing algorithms.</p>
+                <h2>🚗 Configuración del Perfil del Vehículo</h2>
+                <p>Configura los datos de tu vehículo para optimizar los algoritmos de enrutamiento.</p>
             </div>
             <form id="onboarding-form" onsubmit="saveVehicleProfile(event)">
                 <div class="form-group">
-                    <label>Vehicle Type</label>
+                    <label>Tipo de Vehículo</label>
                     <select id="car-type" required>
-                        <option value="Sedan / Compact">Sedan / Compact (Standard footprint)</option>
-                        <option value="SUV / Crossover">SUV / Crossover (High volume)</option>
-                        <option value="Electric / Hybrid">EV / Hybrid (Eco-priority lane access)</option>
-                        <option value="Heavy Duty / Logistics">Heavy Duty / Cargo (Restricted zones)</option>
+                        <option value="Sedán / Compacto">Sedán / Compacto (Huella estándar)</option>
+                        <option value="SUV / Crossover">SUV / Crossover (Mayor volumen)</option>
+                        <option value="Eléctrico / Híbrido">Eléctrico / Híbrido (Acceso prioritario a carriles ecológicos)</option>
+                        <option value="Carga Pesada / Logística">Carga Pesada / Logística (Zonas restringidas)</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label>Propulsion / Engine</label>
+                    <label>Propulsión / Motor</label>
                     <select id="engine-type">
-                        <option value="Internal Combustion">Gasoline / Diesel</option>
-                        <option value="100% Electric">100% Electric (Zero Emissions)</option>
-                        <option value="Plug-in Hybrid">Plug-in Hybrid (PHEV)</option>
+                        <option value="Combustión Interna">Gasolina / Diésel</option>
+                        <option value="100% Eléctrico">100% Eléctrico (Cero emisiones)</option>
+                        <option value="Híbrido Enchufable">Híbrido Enchufable (PHEV)</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Primary Optimization Goal</label>
+                    <label>Objetivo Principal de Optimización</label>
                     <select id="opt-goal">
-                        <option value="Maximum Time Efficiency">Absolute Time Efficiency (Fastest)</option>
-                        <option value="Energy & Fuel Economy">Energy Conservation (Eco-routing)</option>
-                        <option value="Balanced System Load">Communal Distribution (Maximum Reward Points)</option>
+                        <option value="Máxima Eficiencia de Tiempo">Máxima eficiencia de tiempo (Ruta más rápida)</option>
+                        <option value="Ahorro de Energía y Combustible">Ahorro de energía (Ruta ecológica)</option>
+                        <option value="Carga Equilibrada del Sistema">Distribución colaborativa (Máxima recompensa)</option>
                     </select>
                 </div>
 
-                <button type="submit" class="btn-submit-profile">Save Profile & Initialize AI</button>
+                <button type="submit" class="btn-submit-profile">Guardar Perfil e Inicializar IA</button>
             </form>
         </div>
     </div>
@@ -78,11 +78,11 @@
     <div id="ai-notification" class="notification-toast">
         <div class="notification-header">
             <span class="notification-icon">🧠</span>
-            <strong>QroRoute-AI // Predictive Engine</strong>
+            <strong>QroRoute-AI // Motor Predictivo</strong>
             <button class="close-notification" onclick="closeNotification()">×</button>
         </div>
         <div class="notification-body" id="dynamic-notification-text">
-            Habit sequence detected: <strong>Upcoming departure forecast [18:20].</strong> Your standard route shows severe delays. Collaborative bypass suggested to preserve time efficiency.
+            Secuencia de hábitos detectada: <strong>Próxima salida estimada [18:20].</strong> Tu ruta habitual presenta retrasos considerables. Se recomienda un desvío colaborativo para preservar la eficiencia del tiempo.
         </div>
     </div>
 
@@ -90,62 +90,68 @@
         <div>
             <div class="logo-container">
                 <h1>QroRoute-AI</h1>
-                <div class="tagline">Collaborative Smart Mobility</div>
+                <div class="tagline">Movilidad Inteligente Colaborativa</div>
                 <div id="active-profile-badge" style="display:none; margin-top:8px; font-size:10px; color:var(--qro-blue); font-weight:700; text-transform:uppercase; background:rgba(0,102,255,0.06); padding:4px; border-radius:4px;"></div>
             </div>
 
             <div class="tab-navigation">
-                <button class="tab-btn active" onclick="switchTab('routing-tab')">Routing Center</button>
-                <button class="tab-btn" onclick="switchTab('nn-tab')">Neural Network (LSTM)</button>
+                <button class="tab-btn active" onclick="switchTab('routing-tab')">Centro de Enrutamiento</button>
+                <button class="tab-btn" onclick="switchTab('nn-tab')">Red Neuronal (LSTM)</button>
             </div>
 
             <div id="routing-tab" class="tab-content active">
                 <div class="card">
-                    <h3>⚡ Routing Protocol</h3>
-                    <button class="btn btn-individual" onclick="runIndividualRouting()">Individual Routing (Google/Waze)</button>
-                    <button class="btn btn-ai" onclick="runCollaborativeRouting()">Activate QroRoute-AI Protocol</button>
+                    <h3>⚡ Protocolo de Enrutamiento</h3>
+                    <button class="btn btn-individual" onclick="runIndividualRouting()">Enrutamiento Individual (Google/Waze)</button>
+                    <button class="btn btn-ai" onclick="runCollaborativeRouting()">Activar Protocolo QroRoute-AI</button>
                 </div>
 
                 <div class="card">
-                    <h3>📊 Network Diagnostics</h3>
-                    <div id="system-status" class="status-badge">STANDBY</div>
-                    <p id="status-desc" style="margin-top: 10px; min-height: 50px; color: #475569;">Select a routing paradigm to visualize city load distribution profile.</p>
+                    <h3>📊 Diagnóstico de la Red</h3>
+                    <div id="system-status" class="status-badge">EN ESPERA</div>
+                    <p id="status-desc" style="margin-top: 10px; min-height: 50px; color: #475569;">
+                        Selecciona un modelo de enrutamiento para visualizar la distribución de carga vial de la ciudad.
+                    </p>
                 </div>
             </div>
 
             <div id="nn-tab" class="tab-content">
                 <div class="card">
-                    <h3>☉ LSTM Habit Architecture</h3>
+                    <h3>☉ Arquitectura de Hábitos LSTM</h3>
                     <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px;">
-                        Recurrent Neural Networks (LSTM) process sequential time-series data to forecast driver intentions.
+                        Las Redes Neuronales Recurrentes (LSTM) procesan secuencias temporales para predecir las intenciones de conducción.
                     </p>
                     <div class="habit-pill">
-                        <strong>Input Sequence:</strong> Mon-Fri [18:20 - 18:35]<br>
-                        <strong>Spatial Match:</strong> 98.4% Confidence<br>
-                        <strong>Predicted Dest:</strong> Centro Sur Node
+                        <strong>Secuencia de Entrada:</strong> Lun-Vie [18:20 - 18:35]<br>
+                        <strong>Coincidencia Espacial:</strong> 98.4% de confianza<br>
+                        <strong>Destino Predicho:</strong> Nodo Centro Sur
                     </div>
                 </div>
 
                 <div class="card">
-                    <h3>🔮 Target Prediction Sandbox</h3>
-                    <label style="font-size: 11px; font-weight: bold; color: var(--text-muted);">SELECT SIMULATED TIMESTAMP:</label>
+                    <h3>🔮 Simulador de Predicción de Destino</h3>
+                    <label style="font-size: 11px; font-weight: bold; color: var(--text-muted);">
+                        SELECCIONA UNA HORA SIMULADA:
+                    </label>
                     <select id="time-selector" onchange="triggerNNEngine()" style="width: 100%; padding: 8px; margin-top: 5px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 12px; background: #fff; color: #0f172a;">
-                        <option value="weekday-rush">Monday @ 18:30 (Peak Hour)</option>
-                        <option value="weekend-morning">Saturday @ 10:00 (Leisure)</option>
-                        <option value="night-shift">Thursday @ 23:00 (Late Shift)</option>
+                        <option value="weekday-rush">Lunes @ 18:30 (Hora Pico)</option>
+                        <option value="weekend-morning">Sábado @ 10:00 (Tiempo Libre)</option>
+                        <option value="night-shift">Jueves @ 23:00 (Turno Nocturno)</option>
                     </select>
                     <div id="nn-output" style="margin-top: 10px; font-size: 12px; padding: 10px; background: #fff; border-radius: 6px; border-left: 3px solid var(--qro-blue);">
-                        <strong>LSTM State:</strong> Awaiting trigger...
+                        <strong>Estado LSTM:</strong> Esperando activación...
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="card" style="margin-bottom: 0; background-color: #ffffff; border: 1px solid rgba(0, 102, 255, 0.15); box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-            <h4 style="margin: 0; text-align: center; color: var(--text-muted); font-size: 11px; letter-spacing: 1px; text-transform: uppercase;">Civic Wallet Incentives</h4>
+            <h4 style="margin: 0; text-align: center; color: var(--text-muted); font-size: 11px; letter-spacing: 1px; text-transform: uppercase;">
+                Incentivos de la Billetera Ciudadana
+            </h4>
             <div class="token-display" id="token-count">0.00 QRO</div>
             <div style="font-size: 10px; color: var(--success-green); text-align: center; font-weight: bold;">
-                ✓ Active Link with IQT Government Framework
+                ✓ Enlace activo con la Plataforma Gubernamental IQT
             </div>
         </div>
     </div>

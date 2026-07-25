@@ -1,8 +1,8 @@
 // Memoria local simulada para guardar los parámetros del carro
 let userVehicleData = {
-    type: "Sedan / Compact",
-    engine: "Internal Combustion",
-    goal: "Maximum Time Efficiency"
+    type: "Sedán / Compacto",
+    engine: "Combustión Interna",
+    goal: "Máxima Eficiencia de Tiempo"
 };
 
 // CONTROL DE TIMING DE LA ANIMACIÓN + ENTRADA DE FORMULARIO DE REGISTRO
@@ -48,14 +48,14 @@ function saveVehicleProfile(event) {
 
     // Actualiza el badge visual en la barra lateral para demostrar que los datos se guardaron
     const badge = document.getElementById('active-profile-badge');
-    badge.innerHTML = `⚙️ Core Sync: ${userVehicleData.type} (${userVehicleData.engine})`;
+    badge.innerHTML = `⚙️ Sincronización del Núcleo: ${userVehicleData.type} (${userVehicleData.engine})`;
     badge.style.display = "block";
 
     // Modifica dinámicamente el texto de la alerta neuronal para personalizarlo con sus datos
     document.getElementById('dynamic-notification-text').innerHTML = `
-        Habit sequence detected for your <strong>${userVehicleData.type}</strong>. 
-        Upcoming departure forecast [18:20]. Standard route contains delays. 
-        Bypass optimization tailored for <strong>${userVehicleData.goal}</strong> is computed.
+        Secuencia de hábitos detectada para tu <strong>${userVehicleData.type}</strong>. 
+        Pronóstico de próxima salida [18:20]. La ruta estándar presenta retrasos. 
+        Se ha calculado una optimización de desvío adaptada para <strong>${userVehicleData.goal}</strong>.
     `;
 
     // Cierra el modal con efecto fade-out
@@ -90,13 +90,13 @@ function triggerNNEngine() {
     const outputBox = document.getElementById('nn-output');
     
     if (selector === 'weekday-rush') {
-        outputBox.innerHTML = `<strong>Result:</strong> Routine Confirmed.<br>📍 Destination: <strong>Centro Sur (Workplace)</strong>.<br>🔮 Recommendation: Core algorithm priority synced to <em>${userVehicleData.goal}</em>. Route B active.`;
+        outputBox.innerHTML = `<strong>Resultado:</strong> Rutina confirmada.<br>📍 Destino: <strong>Centro Sur (Lugar de trabajo)</strong>.<br>🔮 Recomendación: Prioridad del algoritmo central sincronizada con <em>${userVehicleData.goal}</em>. Ruta B activa.`;
         outputBox.style.borderLeftColor = "var(--qro-blue)";
     } else if (selector === 'weekend-morning') {
-        outputBox.innerHTML = "<strong>Result:</strong> Anomaly Detected (Non-routine trip).<br>📍 Destination: <strong>Antea / Juriquilla Shopping Hub</strong>.<br>🔮 Recommendation: Open routing active. High network bandwidth available.";
+        outputBox.innerHTML = "<strong>Resultado:</strong> Anomalía detectada (Viaje fuera de la rutina).<br>📍 Destino: <strong>Antea / Centro Comercial Juriquilla</strong>.<br>🔮 Recomendación: Enrutamiento abierto activo. Alta capacidad de red disponible.";
         outputBox.style.borderLeftColor = "var(--qro-green)";
     } else if (selector === 'night-shift') {
-        outputBox.innerHTML = "<strong>Result:</strong> Alternate Cluster Node found.<br>📍 Destination: <strong>Pénjamo Logistics Area</strong>.<br>🔮 Recommendation: Long distance highway optimization protocols activated.";
+        outputBox.innerHTML = "<strong>Resultado:</strong> Nodo alternativo del clúster encontrado.<br>📍 Destino: <strong>Zona Logística de Pénjamo</strong>.<br>🔮 Recomendación: Protocolos de optimización para carreteras de larga distancia activados.";
         outputBox.style.borderLeftColor = "#8b5cf6"; 
     }
 }
@@ -112,8 +112,8 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r
 const originJuriquilla = [20.6900, -100.4450];
 const destCentroSur = [20.5630, -100.3630];
 
-L.circleMarker(originJuriquilla, {radius: 8, color: '#0066ff', fillColor: '#0066ff', fillOpacity: 0.9}).addTo(map).bindPopup('<b>Origin Node:</b> Juriquilla');
-L.circleMarker(destCentroSur, {radius: 8, color: '#00cc99', fillColor: '#00cc99', fillOpacity: 0.9}).addTo(map).bindPopup('<b>Destination Node:</b> Centro Sur');
+L.circleMarker(originJuriquilla, {radius: 8, color: '#0066ff', fillColor: '#0066ff', fillOpacity: 0.9}).addTo(map).bindPopup('<b>Nodo de origen:</b> Juriquilla');
+L.circleMarker(destCentroSur, {radius: 8, color: '#00cc99', fillColor: '#00cc99', fillOpacity: 0.9}).addTo(map).bindPopup('<b>Nodo de destino:</b> Centro Sur');
 
 let activeNetworkLayers = [];
 
@@ -125,10 +125,10 @@ function clearNetwork() {
 function runIndividualRouting() {
     clearNetwork();
     document.getElementById('token-count').innerText = "0.00 QRO";
-    document.getElementById('system-status').innerText = "CRITICAL SATURATION";
+    document.getElementById('system-status').innerText = "SATURACIÓN CRÍTICA";
     document.getElementById('system-status').style.backgroundColor = "#fee2e2";
     document.getElementById('system-status').style.color = "#ef4444";
-    document.getElementById('status-desc').innerHTML = "<strong>Result:</strong> Standard navigation apps sent 100% of vehicles through the exact same route. Massive gridlock. Average speed: 11 km/h.";
+    document.getElementById('status-desc').innerHTML = "<strong>Resultado:</strong> Las aplicaciones de navegación estándar enviaron al 100% de los vehículos por la misma ruta. Congestionamiento masivo. Velocidad promedio: 11 km/h.";
 
     const heavyCongestionPath = [originJuriquilla, [20.6550, -100.4250], [20.6150, -100.4050], [20.5850, -100.3800], destCentroSur];
     const polyline = L.polyline(heavyCongestionPath, {color: '#ef4444', weight: 6, opacity: 0.85, dashArray: '8, 8'}).addTo(map);
@@ -138,10 +138,10 @@ function runIndividualRouting() {
 function runCollaborativeRouting() {
     clearNetwork();
     document.getElementById('token-count').innerText = "+25.50 QRO";
-    document.getElementById('system-status').innerText = "BALANCED & EFFICIENT";
+    document.getElementById('system-status').innerText = "EQUILIBRADO Y EFICIENTE";
     document.getElementById('system-status').style.backgroundColor = "#d1fae5";
     document.getElementById('system-status').style.color = "#065f46";
-    document.getElementById('status-desc').innerHTML = `<strong>Result:</strong> AI decentralized traffic footprint optimized for <strong>${userVehicleData.type}</strong>. Flow balanced across alternative arterial nodes successfully.`;
+    document.getElementById('status-desc').innerHTML = `<strong>Resultado:</strong> La IA optimizó de forma descentralizada la distribución del tráfico para <strong>${userVehicleData.type}</strong>. El flujo se equilibró exitosamente entre nodos arteriales alternativos.`;
 
     const pathBQ = [originJuriquilla, [20.6650, -100.4000], [20.6100, -100.3700], [20.5800, -100.3600], destCentroSur];
     const pathLibramiento = [originJuriquilla, [20.6600, -100.4700], [20.5900, -100.4600], [20.5500, -100.4100], destCentroSur];
